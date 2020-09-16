@@ -7,8 +7,6 @@
             "fontFace": "Source Code Pro",
             "fontSize": 14,
             "cursorShape": "filledBox",
-            "useAcrylic": true,
-            "acrylicOpacity": 0.75,
             "cursorColor": "#7f7f7f"
         },
         "list": [

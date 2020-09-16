@@ -1,0 +1,19 @@
+{
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "editor.fontSize": 18,
+    "terminal.integrated.fontSize": 18,
+    "editor.fontFamily": "Source Code Pro",
+    "python.formatting.provider": "black",
+    "window.autoDetectColorScheme": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.pylintUseMinimalCheckers": false,
+    "python.linting.pylintCategorySeverity.refactor": "Information",
+    "python.linting.pycodestyleEnabled": true,
+    "editor.minimap.enabled": false,
+    "python.formatting.blackArgs": [
+        "--line-length=100"
+    ],
+    "git.autofetch": true,
+    "go.lintTool": "golangci-lint"
+}

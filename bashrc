@@ -6,7 +6,9 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 
 alias fun='eval $(alias | awk "/^alias base16_.+=/ {print \$2}" | cut -d = -f 1 | sort -R | head -1)'
 alias ls=exa
-alias cat='batcat -p'
+alias cat='batcat --theme base16 -p'
+alias diff='colordiff -u'
+alias s='sudo -E'
 
 export PATH="${HOME}/go/bin:${HOME}/bin:${PATH}"
 

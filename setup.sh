@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+type colordiff git curl vim >/dev/null
+
 overwrite() {
     if ! colordiff -bu "$2" "$1"; then
         read -rp 'Apply? '

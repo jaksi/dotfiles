@@ -17,3 +17,4 @@
     "git.autofetch": true,
     "go.lintTool": "golangci-lint"
 }
+

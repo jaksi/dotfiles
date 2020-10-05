@@ -13,3 +13,4 @@ alias s='sudo -E'
 export PATH="${HOME}/go/bin:${HOME}/bin:${PATH}"
 
 source ~/.promptline.sh
+

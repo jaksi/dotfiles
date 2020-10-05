@@ -1,7 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-type colordiff git curl vim >/dev/null
+type colordiff git curl vim exa >/dev/null
+type bat >/dev/null 2>&1 || type batcat >/dev/null 2>&1 || echo 'bat or batcat not found'
 
 overwrite() {
     if ! colordiff -bu "$2" "$1"; then

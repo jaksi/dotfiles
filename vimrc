@@ -19,6 +19,7 @@ let g:airline_symbols_ascii = 1
 let g:tmuxline_powerline_separators = 0
 let g:tmuxline_theme = 'airline'
 
+let g:promptline_powerline_symbols = 0
 let g:promptline_theme = 'airline'
 
 set number

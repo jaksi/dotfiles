@@ -15,6 +15,7 @@ elif type batcat >/dev/null 2>&1; then
 fi
 alias diff='colordiff -u'
 alias s='sudo -E'
+alias l='ls -la'
 
 export PATH="${HOME}/go/bin:${HOME}/bin:${PATH}"
 

@@ -63,11 +63,10 @@ if [[ $SHELL != "$FISH" ]]; then
 fi
 
 echo 'Configuring fish'
-FISH_CONFIG_DIR=~/.config/fish
-[[ $USER == 'root' ]] && FISH_CONFIG_DIR=/etc/fish
-mkdir -p $FISH_CONFIG_DIR
-cp config.fish $FISH_CONFIG_DIR/config.fish
-cat "config-$OS.fish" >>$FISH_CONFIG_DIR/config.fish
+FISH_CONFIG_FILE=~/.config/fish/config.fish
+mkdir -p "$(dirname $FISH_CONFIG_FILE)"
+cp config.fish $FISH_CONFIG_FILE
+cat "config-$OS.fish" >>$FISH_CONFIG_FILE
 PROMPT_LOGIN='(set_color --bold red) (prompt_hostname) (set_color normal)'
 HOSTNAME=$(hostname | tr '[:upper:]' '[:lower:]')
 case $HOSTNAME in
@@ -81,5 +80,5 @@ codespaces-*)
     PROMPT_LOGIN='🪐'
     ;;
 esac
-sed -i.old "s|_PROMPT_LOGIN_|$PROMPT_LOGIN|g" $FISH_CONFIG_DIR/config.fish
-rm $FISH_CONFIG_DIR/config.fish.old
+sed -i.old "s|_PROMPT_LOGIN_|$PROMPT_LOGIN|g" $FISH_CONFIG_FILE
+rm $FISH_CONFIG_FILE.old

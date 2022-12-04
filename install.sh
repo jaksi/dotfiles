@@ -91,4 +91,3 @@ mkdir ~/.ssh 2>/dev/null && chmod 700 ~/.ssh
 cp ssh_config ~/.ssh/config
 
 maybe_install_package htop
-maybe_install_package screenfetch

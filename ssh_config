@@ -1,0 +1,4 @@
+Host vps vps.jaksi.dev
+    User root
+    HostName vps.jaksi.dev
+    Port 2022

@@ -82,3 +82,10 @@ codespaces-*)
 esac
 sed -i.old "s|_PROMPT_LOGIN_|$PROMPT_LOGIN|g" $FISH_CONFIG_FILE
 rm $FISH_CONFIG_FILE.old
+
+echo 'Configuring vim'
+cp vimrc ~/.vimrc
+
+echo 'Configuring ssh'
+mkdir ~/.ssh 2>/dev/null && chmod 700 ~/.ssh
+cp ssh_config ~/.ssh/config

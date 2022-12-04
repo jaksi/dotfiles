@@ -65,8 +65,7 @@ fi
 echo 'Configuring fish'
 FISH_CONFIG_FILE=~/.config/fish/config.fish
 mkdir -p "$(dirname $FISH_CONFIG_FILE)"
-cp config.fish $FISH_CONFIG_FILE
-cat "config-$OS.fish" >>$FISH_CONFIG_FILE
+cat "config-$OS.fish" config.fish >$FISH_CONFIG_FILE
 PROMPT_LOGIN='(set_color --bold magenta) (prompt_hostname) (set_color normal)'
 HOSTNAME=$(hostname | tr '[:upper:]' '[:lower:]')
 case $HOSTNAME in
@@ -91,3 +90,6 @@ mkdir ~/.ssh 2>/dev/null && chmod 700 ~/.ssh
 cp ssh_config ~/.ssh/config
 
 maybe_install_package htop
+echo 'Configuring htop'
+mkdir -p ~/.config/htop
+cp htoprc ~/.config/htop/htoprc

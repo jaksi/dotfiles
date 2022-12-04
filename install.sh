@@ -2,8 +2,12 @@
 set -euo pipefail
 
 error() {
-    echo "Error: $1"
+    echo -e "\033[1;31m$1\033[0m"
     exit 1
+}
+
+log() {
+    echo -e "\033[1;32m$1\033[0m"
 }
 
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
@@ -25,11 +29,11 @@ UPDATED=0
 install_package() {
     local package=$1
     if [[ $UPDATED -eq 0 ]]; then
-        echo 'Updating'
+        log 'Updating'
         $PM update
         UPDATED=1
     fi
-    echo "Installing $package"
+    log "Installing $package"
     $PM install "$package"
 }
 
@@ -43,12 +47,12 @@ maybe_install_package() {
 maybe_install_package fish
 FISH=$(which fish)
 if ! grep -Fqx "$FISH" /etc/shells; then
-    echo "Adding $FISH to /etc/shells"
+    log "Adding $FISH to /etc/shells"
     sudo tee -a /etc/shells <<<"$FISH" >/dev/null
 fi
 
 if [[ $SHELL != "$FISH" ]]; then
-    echo "Changing the default shell to $FISH"
+    log "Changing the default shell to $FISH"
     case $OS in
     linux)
         sudo usermod -s "$FISH" "$USER"
@@ -62,7 +66,7 @@ if [[ $SHELL != "$FISH" ]]; then
     esac
 fi
 
-echo 'Configuring fish'
+log 'Configuring fish'
 FISH_CONFIG_FILE=~/.config/fish/config.fish
 mkdir -p "$(dirname $FISH_CONFIG_FILE)"
 cat "config-$OS.fish" config.fish >$FISH_CONFIG_FILE
@@ -82,15 +86,15 @@ esac
 sed -i.old "s|_PROMPT_LOGIN_|$PROMPT_LOGIN|g" $FISH_CONFIG_FILE
 rm $FISH_CONFIG_FILE.old
 
-echo 'Configuring vim'
+log 'Configuring vim'
 cp vimrc ~/.vimrc
 
-echo 'Configuring ssh'
+log 'Configuring ssh'
 mkdir ~/.ssh 2>/dev/null && chmod 700 ~/.ssh
 cp ssh_config ~/.ssh/config
 
 maybe_install_package htop
-echo 'Configuring htop'
+log 'Configuring htop'
 mkdir -p ~/.config/htop
 cp htoprc ~/.config/htop/htoprc
 

@@ -93,3 +93,5 @@ maybe_install_package htop
 echo 'Configuring htop'
 mkdir -p ~/.config/htop
 cp htoprc ~/.config/htop/htoprc
+
+maybe_install_package tmux

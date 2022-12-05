@@ -14,7 +14,7 @@ OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 case $OS in
 linux)
-    PM='sudo apt-get'
+    PM='sudo apt-get -y'
     ;;
 darwin)
     command -v brew >/dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

@@ -1,3 +1,3 @@
 function prompt_login
-    echo -ns _PROMPT_LOGIN_
+    echo -ns (set_color --bold _COLOR_) _PROMPT_ (set_color normal)
 end

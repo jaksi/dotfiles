@@ -70,20 +70,25 @@ log 'Configuring fish'
 FISH_CONFIG_FILE=~/.config/fish/config.fish
 mkdir -p "$(dirname $FISH_CONFIG_FILE)"
 cat "config-$OS.fish" config.fish >$FISH_CONFIG_FILE
-PROMPT_LOGIN='(set_color --bold magenta) (prompt_hostname) (set_color normal)'
+COLOR='magenta'
+PROMPT='(prompt_hostname)'
 HOSTNAME=$(hostname | tr '[:upper:]' '[:lower:]')
 case $HOSTNAME in
 *macbook*)
-    PROMPT_LOGIN='(set_color --bold red) MacBook (set_color normal)'
+    COLOR='green'
+    PROMPT='MacBook'
     ;;
 vps)
-    PROMPT_LOGIN='(set_color --bold green) VPS (set_color normal)'
+    COLOR='cyan'
+    PROMPT='VPS'
     ;;
 codespaces-*)
-    PROMPT_LOGIN='(set_color --bold blue) Codespaces (set_color normal)'
+    COLOR='red'
+    PROMPT='Codespaces'
     ;;
 esac
-sed -i.old "s|_PROMPT_LOGIN_|$PROMPT_LOGIN|g" $FISH_CONFIG_FILE
+sed -i.old "s|_PROMPT_|$PROMPT|g" $FISH_CONFIG_FILE
+sed -i.old "s|_COLOR_|$COLOR|g" $FISH_CONFIG_FILE
 rm $FISH_CONFIG_FILE.old
 
 log 'Configuring vim'
@@ -99,3 +104,7 @@ mkdir -p ~/.config/htop
 cp htoprc ~/.config/htop/htoprc
 
 maybe_install_package tmux
+log 'Configuring tmux'
+cp tmux.conf ~/.tmux.conf
+sed -i.old "s|_COLOR_|$COLOR|g" ~/.tmux.conf
+rm ~/.tmux.conf.old

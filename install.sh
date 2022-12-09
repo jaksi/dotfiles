@@ -70,20 +70,24 @@ log 'Configuring fish'
 FISH_CONFIG_FILE=~/.config/fish/config.fish
 mkdir -p "$(dirname $FISH_CONFIG_FILE)"
 cat "config-$OS.fish" config.fish >$FISH_CONFIG_FILE
-COLOR='magenta'
+COLOR='black'
 PROMPT='(prompt_hostname)'
 HOSTNAME=$(hostname | tr '[:upper:]' '[:lower:]')
 case $HOSTNAME in
 *macbook*)
-    COLOR='green'
+    if [[ $OS == 'darwin' ]]; then
+        COLOR='red'
+    elif [[ $OS == 'linux' ]]; then
+        COLOR='green'
+    fi
     PROMPT='MacBook'
     ;;
 vps)
-    COLOR='cyan'
+    COLOR='blue'
     PROMPT='VPS'
     ;;
 codespaces-*)
-    COLOR='red'
+    COLOR='magenta'
     PROMPT='Codespaces'
     ;;
 esac

@@ -68,47 +68,38 @@ fi
 
 log 'Configuring fish'
 FISH_CONFIG_FILE=~/.config/fish/config.fish
-mkdir -p "$(dirname $FISH_CONFIG_FILE)"
-cat "config-$OS.fish" config.fish >$FISH_CONFIG_FILE
-COLOR='black'
-PROMPT='(prompt_hostname)'
+HOST='(prompt_hostname)'
 HOSTNAME=$(hostname | tr '[:upper:]' '[:lower:]')
 case $HOSTNAME in
 *macbook*)
-    if [[ $OS == 'darwin' ]]; then
-        COLOR='red'
-    elif [[ $OS == 'linux' ]]; then
-        COLOR='green'
-    fi
-    PROMPT='MacBook'
+    HOST='MacBook'
     ;;
 vps)
-    COLOR='blue'
-    PROMPT='VPS'
+    HOST='VPS'
     ;;
 codespaces-*)
-    COLOR='magenta'
-    PROMPT='Codespaces'
+    HOST='Codespaces'
     ;;
 esac
-sed -i.old "s|_PROMPT_|$PROMPT|g" $FISH_CONFIG_FILE
-sed -i.old "s|_COLOR_|$COLOR|g" $FISH_CONFIG_FILE
+mkdir -p "$(dirname $FISH_CONFIG_FILE)"
+cat "config-$OS.fish" config.fish >$FISH_CONFIG_FILE
+sed -i.old "s|_HOST_|$HOST|g" $FISH_CONFIG_FILE
 rm $FISH_CONFIG_FILE.old
 
 log 'Configuring vim'
-cp vimrc ~/.vimrc
+cat vimrc> ~/.vimrc
 
 log 'Configuring ssh'
 mkdir ~/.ssh 2>/dev/null && chmod 700 ~/.ssh
-cp ssh_config ~/.ssh/config
+cat ssh_config >~/.ssh/config
 
 maybe_install_package htop
 log 'Configuring htop'
 mkdir -p ~/.config/htop
-cp htoprc ~/.config/htop/htoprc
+cat htoprc >~/.config/htop/htoprc
 
 maybe_install_package tmux
 log 'Configuring tmux'
-cp tmux.conf ~/.tmux.conf
-sed -i.old "s|_COLOR_|$COLOR|g" ~/.tmux.conf
+cat tmux.conf >~/.tmux.conf
+sed -i.old "s|_HOST_|$HOST|g" ~/.tmux.conf
 rm ~/.tmux.conf.old

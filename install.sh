@@ -68,8 +68,8 @@ fi
 
 log 'Configuring fish'
 FISH_CONFIG_FILE=~/.config/fish/config.fish
-HOST='(prompt_hostname)'
 HOSTNAME=$(hostname | tr '[:upper:]' '[:lower:]')
+HOST=$HOSTNAME
 case $HOSTNAME in
 *macbook*)
     HOST='MacBook'
@@ -87,7 +87,7 @@ sed -i.old "s|_HOST_|$HOST|g" $FISH_CONFIG_FILE
 rm $FISH_CONFIG_FILE.old
 
 log 'Configuring vim'
-cat vimrc> ~/.vimrc
+cat vimrc >~/.vimrc
 
 log 'Configuring ssh'
 mkdir ~/.ssh 2>/dev/null && chmod 700 ~/.ssh

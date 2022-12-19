@@ -70,12 +70,13 @@ if [[ $SHELL != "$FISH" ]]; then
 fi
 
 log 'Configuring fish'
-FISH_CONFIG_FILE=~/.config/fish/config.fish
 HOSTNAME=$(hostname | tr '[:upper:]' '[:lower:]')
 HOST=$HOSTNAME
+ROLE=server
 case $HOSTNAME in
 *macbook*)
     HOST='MacBook'
+    ROLE=client
     ;;
 vps)
     HOST='VPS'
@@ -84,8 +85,11 @@ codespaces-*)
     HOST='Codespaces'
     ;;
 esac
+FISH_CONFIG_FILE=~/.config/fish/config.fish
 mkdir -p "$(dirname $FISH_CONFIG_FILE)"
-cat "config-$OS.fish" config.fish >$FISH_CONFIG_FILE
+cat config.fish >$FISH_CONFIG_FILE
+[[ -f "config-$OS.fish" ]] && cat "config-$OS.fish" >>$FISH_CONFIG_FILE
+[[ -f "config-$ROLE.fish" ]] && cat "config-$ROLE.fish" >>$FISH_CONFIG_FILE
 sed -i.old "s|_HOST_|$HOST|g" $FISH_CONFIG_FILE
 rm $FISH_CONFIG_FILE.old
 

@@ -2,3 +2,8 @@ Host vps vps.jaksi.dev
     User root
     HostName vps.jaksi.dev
     Port 2022
+
+Host home home.jaksi.dev
+    User jaksi
+    HostName home.jaksi.dev
+    IdentityFile ~/.ssh/id_ed25519

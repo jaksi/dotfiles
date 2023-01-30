@@ -6,4 +6,3 @@ Host vps vps.jaksi.dev
 Host home home.jaksi.dev
     User jaksi
     HostName home.jaksi.dev
-    IdentityFile ~/.ssh/id_ed25519

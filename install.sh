@@ -47,6 +47,8 @@ maybe_install_package() {
     command -v "$cmd" >/dev/null || install_package "$package"
 }
 
+[[ $OS == darwin ]] && maybe_install_package gdate coreutils
+
 maybe_install_package fish
 FISH=$(which fish)
 if ! grep -Fqx "$FISH" /etc/shells; then

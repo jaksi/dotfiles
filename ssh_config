@@ -1,7 +1,7 @@
 Host vps vps.jaksi.dev
     User root
     HostName vps.jaksi.dev
-    Port 2022
+    Port 2222
 
 Host home home.jaksi.dev
     User jaksi

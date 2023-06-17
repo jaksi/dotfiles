@@ -116,3 +116,7 @@ log 'Configuring tmux'
 cat tmux.conf >~/.tmux.conf
 sed -i.old "s|_HOST_|$HOST|g" ~/.tmux.conf
 rm ~/.tmux.conf.old
+
+maybe_install_package git
+log 'Configuring git'
+cat gitconfig >~/.gitconfig

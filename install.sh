@@ -48,7 +48,12 @@ maybe_install_packages() {
     command -v "$cmd" >/dev/null || install_packages "$packages"
 }
 
-maybe_install_packages batcat bat
+if [[ $OS == darwin ]]; then
+    maybe_install_packages bat
+else
+    maybe_install_packages batcat bat
+fi
+
 maybe_install_packages exa
 maybe_install_packages fish
 maybe_install_packages gh

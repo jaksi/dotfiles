@@ -50,6 +50,7 @@ maybe_install_packages() {
 
 [[ $OS == darwin ]] && maybe_install_packages gdate coreutils
 
+maybe_install_packages batcat bat
 maybe_install_packages dictd dictd dict-freedict-eng-hun dict-freedict-hun-eng
 maybe_install_packages exa
 maybe_install_packages fish

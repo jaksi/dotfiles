@@ -80,6 +80,10 @@ case $HOSTNAME in
     HOST='MacBook'
     ROLE=client
     ;;
+*desktop-windows)
+    HOST='WSL'
+    ROLE=client
+    ;;
 vps)
     HOST='VPS'
     ;;

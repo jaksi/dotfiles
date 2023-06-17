@@ -50,7 +50,17 @@ maybe_install_packages() {
 
 [[ $OS == darwin ]] && maybe_install_packages gdate coreutils
 
+maybe_install_packages dictd dictd dict-freedict-eng-hun dict-freedict-hun-eng
+maybe_install_packages exa
 maybe_install_packages fish
+maybe_install_packages gh
+maybe_install_packages git
+maybe_install_packages htop
+maybe_install_packages jq
+maybe_install_packages tmux
+maybe_install_packages vim
+maybe_install_packages yq
+
 FISH=$(which fish)
 if ! grep -Fqx "$FISH" /etc/shells; then
     log "Adding $FISH to /etc/shells"
@@ -100,29 +110,21 @@ cat config.fish >$FISH_CONFIG_FILE
 sed -i.old "s|_HOST_|$HOST|g" $FISH_CONFIG_FILE
 rm $FISH_CONFIG_FILE.old
 
-maybe_install_packages vim
-log 'Configuring vim'
-cat vimrc >~/.vimrc
+log 'Configuring git'
+cat gitconfig >~/.gitconfig
+
+log 'Configuring htop'
+mkdir -p ~/.config/htop
+cat htoprc >~/.config/htop/htoprc
 
 log 'Configuring ssh'
 mkdir ~/.ssh 2>/dev/null && chmod 700 ~/.ssh
 cat ssh_config >~/.ssh/config
 
-maybe_install_packages htop
-log 'Configuring htop'
-mkdir -p ~/.config/htop
-cat htoprc >~/.config/htop/htoprc
-
-maybe_install_packages tmux
 log 'Configuring tmux'
 cat tmux.conf >~/.tmux.conf
 sed -i.old "s|_HOST_|$HOST|g" ~/.tmux.conf
 rm ~/.tmux.conf.old
 
-maybe_install_packages git
-log 'Configuring git'
-cat gitconfig >~/.gitconfig
-
-maybe_install_packages exa
-
-maybe_install_packages dictd dictd dict-freedict-eng-hun dict-freedict-hun-eng
+log 'Configuring vim'
+cat vimrc >~/.vimrc

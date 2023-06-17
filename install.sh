@@ -29,27 +29,28 @@ darwin)
 esac
 
 UPDATED=0
-install_package() {
-    local package=$1
+install_packages() {
+    local packages=$*
     if [[ $UPDATED -eq 0 ]]; then
         log 'Updating'
         $PM update
         UPDATED=1
     fi
-    log "Installing $package"
-    $PM install "$package"
+    log "Installing packages: $packages"
+    #shellcheck disable=SC2086
+    $PM install $packages
 }
 
-maybe_install_package() {
+maybe_install_packages() {
     local cmd=$1
-    local package=$cmd
-    [[ $# -gt 1 ]] && package=$2
-    command -v "$cmd" >/dev/null || install_package "$package"
+    local packages=$cmd
+    [[ $# -gt 1 ]] && packages=${*:2}
+    command -v "$cmd" >/dev/null || install_packages "$packages"
 }
 
-[[ $OS == darwin ]] && maybe_install_package gdate coreutils
+[[ $OS == darwin ]] && maybe_install_packages gdate coreutils
 
-maybe_install_package fish
+maybe_install_packages fish
 FISH=$(which fish)
 if ! grep -Fqx "$FISH" /etc/shells; then
     log "Adding $FISH to /etc/shells"
@@ -99,6 +100,7 @@ cat config.fish >$FISH_CONFIG_FILE
 sed -i.old "s|_HOST_|$HOST|g" $FISH_CONFIG_FILE
 rm $FISH_CONFIG_FILE.old
 
+maybe_install_packages vim
 log 'Configuring vim'
 cat vimrc >~/.vimrc
 
@@ -106,17 +108,21 @@ log 'Configuring ssh'
 mkdir ~/.ssh 2>/dev/null && chmod 700 ~/.ssh
 cat ssh_config >~/.ssh/config
 
-maybe_install_package htop
+maybe_install_packages htop
 log 'Configuring htop'
 mkdir -p ~/.config/htop
 cat htoprc >~/.config/htop/htoprc
 
-maybe_install_package tmux
+maybe_install_packages tmux
 log 'Configuring tmux'
 cat tmux.conf >~/.tmux.conf
 sed -i.old "s|_HOST_|$HOST|g" ~/.tmux.conf
 rm ~/.tmux.conf.old
 
-maybe_install_package git
+maybe_install_packages git
 log 'Configuring git'
 cat gitconfig >~/.gitconfig
+
+maybe_install_packages exa
+
+maybe_install_packages dictd dictd dict-freedict-eng-hun dict-freedict-hun-eng
